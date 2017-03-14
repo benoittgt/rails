@@ -82,6 +82,14 @@ class MessageVerifierTest < ActiveSupport::TestCase
       @verifier.verify(message)
     end
   end
+
+  def test_with_128_bytes_key
+    # key = (0...128).map { ('a'..'z').to_a[rand(26)] }.join
+    # encoded_text = ActiveSupport::MessageEncryptor.new(key).encrypt_and_sign("MyTextIsLong")
+    key = "pwtzaphqnilfzzhujnyrjtwpaqnesshsqqievcvawmketkkxpkwptkkmnlhprnbqyfnzbycvzfibnrbfpufvwzkksehndofrmdamgogxouauxbpzvwxbqsjnrhctewmv"
+    encoded_text = "SkpxZUZCWEFFeWpOQ3JDYkE0aWVkM1E5dlNPYlRTRlpuZkthb3RFZmpBcz0tLUR2MVErZ1YxSzRHQXRiSzk5YTBQU0E9PQ==--5e973448bacbf2c96a8cc27279ae4e77c5500ed2"
+    assert_equal 'MyTextIsLong', ActiveSupport::MessageEncryptor.new(key).decrypt_and_verify(encoded_text)
+  end
 end
 
 end
