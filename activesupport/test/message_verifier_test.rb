@@ -88,7 +88,7 @@ class MessageVerifierTest < ActiveSupport::TestCase
     # encoded_text = ActiveSupport::MessageEncryptor.new(key).encrypt_and_sign("MyTextIsLong")
     key = "pwtzaphqnilfzzhujnyrjtwpaqnesshsqqievcvawmketkkxpkwptkkmnlhprnbqyfnzbycvzfibnrbfpufvwzkksehndofrmdamgogxouauxbpzvwxbqsjnrhctewmv"
     encoded_text = "SkpxZUZCWEFFeWpOQ3JDYkE0aWVkM1E5dlNPYlRTRlpuZkthb3RFZmpBcz0tLUR2MVErZ1YxSzRHQXRiSzk5YTBQU0E9PQ==--5e973448bacbf2c96a8cc27279ae4e77c5500ed2"
-    assert_equal 'MyTextIsLong', ActiveSupport::MessageEncryptor.new(key).decrypt_and_verify(encoded_text)
+    assert_equal 'MyTextIsLong', ActiveSupport::MessageEncryptor.new(key[0..31]).decrypt_and_verify(encoded_text)
   end
 end
 
