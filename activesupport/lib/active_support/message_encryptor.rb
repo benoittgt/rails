@@ -99,8 +99,8 @@ module ActiveSupport
       decrypted_data << cipher.final
 
       @serializer.load(decrypted_data)
-    rescue OpenSSLCipherError, TypeError, ArgumentError
-      raise InvalidMessage
+    rescue OpenSSLCipherError, TypeError, ArgumentError => e
+      raise InvalidMessage.new(e)
     end
 
     def new_cipher
