@@ -728,6 +728,18 @@ div.important p, div.caution p, div.warning p, div.note p, div.info p {
   margin-bottom: 1em;
 }
 
+/* Prevent shell dollars sign from being selectable when copy pasting commands*/
+span.token.sh.important {
+  margin-right: 0.5em; /* space between dollars sign and command is removed with JS*/
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome,
+  Edge, Opera and Firefox */
+}
+
 /* Edge Badge
 --------------------------------------- */
 

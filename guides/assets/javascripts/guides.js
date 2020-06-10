@@ -29,6 +29,15 @@
   document.addEventListener("turbolinks:load", function() {
     Prism.highlightAll();
 
+    const textNodeType = 3;
+    each(document.querySelectorAll("span.token.command"), function(element) {
+      each(element.childNodes, function(childElement) {
+        if (childElement.textContent == " " && childElement.nodeType == textNodeType) {
+          childElement.remove();
+        }
+      })
+    });
+
     var guidesMenu = document.getElementById("guidesMenu");
     var guides     = document.getElementById("guides");
 
