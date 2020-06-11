@@ -30,12 +30,18 @@
     Prism.highlightAll();
 
     const textNodeType = 3;
-    each(document.querySelectorAll("span.token.command"), function(element) {
+    function removeWhiteSpaceAfterPrompt(element) {
       each(element.childNodes, function(childElement) {
         if (childElement.textContent == " " && childElement.nodeType == textNodeType) {
           childElement.remove();
         }
       })
+    }
+
+    // space after shell prompt is replaced with margin to make shell command
+    // more easily selectable
+    each(document.querySelectorAll("span.token.command"), function(element) {
+      removeWhiteSpaceAfterPrompt(element);
     });
 
     var guidesMenu = document.getElementById("guidesMenu");
