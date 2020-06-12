@@ -722,22 +722,13 @@ div.code_container, div.important, div.caution, div.warning, div.note, div.info 
   margin-bottom: 1.5em;
 }
 
-/* Remove bottom margin of paragraphs in special boxes, otherwise they get a
-spurious blank area below with the box background. */
-div.important p, div.caution p, div.warning p, div.note p, div.info p {
-  margin-bottom: 1em;
+/* Prevent shell prompt from being selectable when selecting commands*/
+code.language-shell-session span.token.command {
+  display: inline-flex;
 }
-
-/* Prevent shell dollars sign from being selectable when copy pasting commands*/
 span.token.sh.important {
-  margin-right: 0.5em; /* space between dollars sign and command is removed with JS*/
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome,
-  Edge, Opera and Firefox */
+  margin-right: 0.5em;
+  user-select: none;
 }
 
 /* Edge Badge
