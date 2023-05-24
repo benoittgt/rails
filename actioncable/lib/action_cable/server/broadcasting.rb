@@ -44,6 +44,9 @@ module ActionCable
           def broadcast(message)
             server.logger.debug { "[ActionCable] Broadcasting to #{broadcasting}: #{message.inspect.truncate(300)}" }
 
+            # TODO: Make it not leaking to other execution context
+            ActiveSupport::ExecutionContext.set(cable: broadcasting)
+
             payload = { broadcasting: broadcasting, message: message, coder: coder }
             ActiveSupport::Notifications.instrument("broadcast.action_cable", payload) do
               encoded = coder ? coder.encode(message) : message

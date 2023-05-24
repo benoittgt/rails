@@ -14,6 +14,22 @@ module ActionCable
       app.deprecators[:action_cable] = ActionCable.deprecator
     end
 
+    initializer "action_controller.query_log_tags" do |app|
+      query_logs_tags_enabled = app.config.respond_to?(:active_record) &&
+        app.config.active_record.query_log_tags_enabled &&
+        app.config.action_controller.log_query_tags_around_actions
+
+      if query_logs_tags_enabled
+        app.config.active_record.query_log_tags |= [:cable]
+      end
+
+      ActiveSupport.on_load(:active_record) do
+        ActiveRecord::QueryLogs.taggings.merge!(
+          cable: ->(context) { context[:cable] }
+        )
+      end
+    end
+
     initializer "action_cable.helpers" do
       ActiveSupport.on_load(:action_view) do
         include ActionCable::Helpers::ActionCableHelper
