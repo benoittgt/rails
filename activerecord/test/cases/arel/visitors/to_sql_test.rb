@@ -1056,7 +1056,24 @@ module Arel
             _(compile(sql)).must_be_like "SELECT foo, bar FROM customers GROUP BY foo"
           end
         end
+
+        describe "Nodes::HomogeneousIn" do
+          it "should use = ANY" do
+            test = Nodes::HomogeneousIn.new([1, 2], @table[:id], :in)
+            _(compile(test)).must_be_like %{
+              "users"."id" = ANY ($1)
+            }
+          end
+
+          it "should use != ALL for negation" do
+            test = Nodes::HomogeneousIn.new([1, 2], @table[:id], :notin)
+            _(compile(test)).must_be_like %{
+              "users"."id" != ALL ($1)
+            }
+          end
+        end
       end
     end
   end
+
 end
